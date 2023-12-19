@@ -4,7 +4,7 @@ import com.performance.global.entity.BaseEntity
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "PLACE")
+@Table(name = "place")
 class Place(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

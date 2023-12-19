@@ -5,14 +5,14 @@ import com.performance.global.entity.BaseEntity
 import jakarta.persistence.*
 
 @Entity
-@Table(name = "SEAT")
+@Table(name = "seat")
 class Seat(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne
-    @JoinColumn(name = "place_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     var place: Place,
 
     @Column(name = "seat_number", nullable = false)

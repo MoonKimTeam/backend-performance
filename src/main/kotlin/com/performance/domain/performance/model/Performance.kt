@@ -7,14 +7,14 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "PERFORMANCE")
+@Table(name = "performance")
 class Performance(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne
-    @JoinColumn(name = "place_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "place_id", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     var place: Place,
 
     @Column(name = "name", nullable = false)
