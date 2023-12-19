@@ -1,19 +1,19 @@
 version: '3'
 services:
-  # 공연 서비스
-  performance-service:
-    image: openjdk:17
-    volumes:
-      - ./volume/performance-service:/usr/src/app
-    working_dir:
-      /usr/src/app
-    networks:
-      - backend
-    depends_on:
-      - performance-db
-    command:
-      "java -jar performance-0.0.1-SNAPSHOT.jar"
-    restart: on-failure
+  #  # 공연 서비스
+  #  performance-service:
+  #    image: openjdk:17
+  #    volumes:
+  #      - ./volume/performance-service:/usr/src/app
+  #    working_dir:
+  #      /usr/src/app
+  #    networks:
+  #      - backend
+  #    depends_on:
+  #      - performance-db
+  #    command:
+  #      "java -jar performance-0.0.1-SNAPSHOT.jar"
+  #    restart: on-failure
   # 공연 서비스 DB
   performance-db:
     image: mysql:latest
