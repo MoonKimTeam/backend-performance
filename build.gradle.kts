@@ -41,3 +41,9 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
+
+tasks {
+	bootJar {
+		destinationDirectory.set(file("${projectDir}/volume/performance-service"))
+	}
+}
