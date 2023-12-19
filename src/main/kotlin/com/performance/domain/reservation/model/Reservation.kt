@@ -7,12 +7,8 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "RESERVATION")
 class Reservation(
-    @Id
-    val id: Long,
-
-    @Id
-    @Column(name = "user_id", nullable = false)
-    var userId: Long,
+    @EmbeddedId
+    var reservationId: ReservationId,
 
     @ManyToOne
     @JoinColumn(name = "performance_id", nullable = false)
@@ -23,4 +19,4 @@ class Reservation(
 
     @Column(name = "is_paid", nullable = false)
     var isPaid: Boolean
-): BaseEntity()
+) : BaseEntity()
