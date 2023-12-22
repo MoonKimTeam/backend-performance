@@ -1,5 +1,6 @@
 package com.performance.domain.place.model
 
+import com.performance.domain.seat.model.Seat
 import com.performance.global.entity.BaseEntity
 import jakarta.persistence.*
 
@@ -14,5 +15,8 @@ class Place(
     var name: String,
 
     @Column(name = "total_seat", nullable = false)
-    var totalSeat: Int
+    var totalSeat: Int,
+
+    @OneToMany(mappedBy = "place")
+    var seats: List<Seat>
 ): BaseEntity()
