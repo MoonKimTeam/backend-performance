@@ -1,6 +1,7 @@
 package com.performance.domain.reservation.model
 
 import com.performance.domain.performance.model.Performance
+import com.performance.domain.reservation.converter.ReservationStatusConverter
 import com.performance.domain.seat.model.Seat
 import com.performance.global.entity.BaseEntity
 import jakarta.persistence.*
@@ -22,6 +23,7 @@ class Reservation(
     @JoinColumn(name = "seat_number", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     var seat: Seat,
 
-    @Column(name = "is_paid", nullable = false)
-    var isPaid: Boolean
+    @Column(name = "status", nullable = false)
+    @Convert(converter = ReservationStatusConverter::class)
+    var status: String
 ) : BaseEntity()
