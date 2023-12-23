@@ -18,5 +18,5 @@ class Place(
     var totalSeat: Int,
 
     @OneToMany(mappedBy = "place")
-    var seats: List<Seat>
+    var seats: List<Seat>?
 ): BaseEntity()

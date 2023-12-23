@@ -31,7 +31,7 @@ dependencies {
 	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testImplementation("io.kotest:kotest-runner-junit5:5.4.2")
 	testImplementation("io.kotest:kotest-assertions-core:5.4.2")
-	testImplementation("io.mockk:mockk:5.4.2")
+	testImplementation("io.mockk:mockk:1.13.8")
 }
 
 tasks.withType<KotlinCompile> {

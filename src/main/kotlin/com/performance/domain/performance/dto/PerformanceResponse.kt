@@ -35,12 +35,12 @@ data class PerformanceResponse(
         performance.place.totalSeat,
         performance.place
             .seats
-            .map {
+            ?.map {
                 SeatResponse(
                     it.id,
                     it.seatNumber,
                     it.isAvailable
                 )
-            }
+            } ?: listOf()
     )
 }

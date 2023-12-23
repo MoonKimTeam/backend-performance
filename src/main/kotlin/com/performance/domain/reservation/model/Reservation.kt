@@ -1,6 +1,7 @@
 package com.performance.domain.reservation.model
 
 import com.performance.domain.performance.model.Performance
+import com.performance.domain.reservation.constant.ReservationStatus
 import com.performance.domain.reservation.converter.ReservationStatusConverter
 import com.performance.domain.seat.model.Seat
 import com.performance.global.entity.BaseEntity
@@ -25,5 +26,5 @@ class Reservation(
 
     @Column(name = "status", nullable = false)
     @Convert(converter = ReservationStatusConverter::class)
-    var status: String
+    var status: ReservationStatus
 ) : BaseEntity()

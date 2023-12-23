@@ -26,7 +26,8 @@ class PerformanceServiceTest {
         place = Place(
             id = 1,
             name = "공연장1",
-            totalSeat = 100
+            totalSeat = 100,
+            seats = listOf()
         ),
         name = "공연1",
         description = "설명1",
