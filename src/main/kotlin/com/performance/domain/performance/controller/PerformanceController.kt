@@ -22,5 +22,4 @@ class PerformanceController(
     @GetMapping("/{id}")
     fun getPerformance(@PathVariable id: Long): ResponseEntity<PerformanceResponse> =
         ResponseEntity.ok(performanceService.getPerformance(id))
-
 }

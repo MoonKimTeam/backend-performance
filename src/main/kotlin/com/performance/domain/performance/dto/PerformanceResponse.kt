@@ -1,7 +1,7 @@
 package com.performance.domain.performance.dto
 
 import com.performance.domain.performance.model.Performance
-import com.performance.domain.seat.dto.SeatResponse
+import com.performance.domain.place.dto.PlaceResponse
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -16,9 +16,7 @@ data class PerformanceResponse(
     private val reservationEndAt: LocalDateTime,
     private val canReserve: Boolean,
     private val availableSeat: Int,
-    private val placeId: Long,
-    private val totalSeat: Int,
-    private val seats: List<SeatResponse>
+    private val place: PlaceResponse
 ) {
     constructor(performance: Performance) : this(
         performance.id,
@@ -33,12 +31,6 @@ data class PerformanceResponse(
                 && performance.reservationEndAt.isBefore(LocalDateTime.now())
                 && performance.reservationStartAt.isAfter(LocalDateTime.now()),
         performance.availableSeat,
-        performance.place.id,
-        performance.place.totalSeat,
-        performance.place
-            .seats
-            ?.map {
-                SeatResponse(it)
-            } ?: listOf()
+        PlaceResponse(performance.place)
     )
 }
