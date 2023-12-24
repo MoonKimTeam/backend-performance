@@ -1,3 +1,3 @@
 package com.performance.global.exception
 
-class ReservationUnavailableException : IllegalStateException()
+class ReservationUnavailableException(message: String) : IllegalThreadStateException(message)
