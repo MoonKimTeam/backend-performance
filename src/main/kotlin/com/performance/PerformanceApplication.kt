@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing
 class PerformanceApplication
 
 fun main(args: Array<String>) {
-	runApplication<PerformanceApplication>(*args)
+    runApplication<PerformanceApplication>(*args)
 }

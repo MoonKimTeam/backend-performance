@@ -15,13 +15,12 @@ class ReservationAspect(
     private val performanceRepository: PerformanceRepository
 ) {
     @Around("execution(* com..reservation.service.saveReservation()) && args(request, ..)")
-    fun checkReservationAvailability(joinPoint: ProceedingJoinPoint, request: ReservationRequest): Any {
-        return joinPoint.proceed()
+    fun checkReservationAvailability(joinPoint: ProceedingJoinPoint, request: ReservationRequest): Any =
+        joinPoint.proceed()
             .takeIf {
                 performanceRepository.findByIdOrNull(
                     request.performanceId
                 )?.canReserve
-                    ?: throw IllegalArgumentException()
+                    ?: throw IllegalStateException()
             } ?: throw ReservationUnavailableException()
-    }
 }

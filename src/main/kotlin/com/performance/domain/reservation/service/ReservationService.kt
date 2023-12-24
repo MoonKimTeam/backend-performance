@@ -6,22 +6,26 @@ import com.performance.domain.reservation.model.Reservation
 import com.performance.domain.reservation.repository.ReservationRepository
 import com.performance.domain.seat.repository.SeatRepository
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-open class ReservationService(
+@Service
+class ReservationService(
     private val reservationRepository: ReservationRepository,
     private val performanceRepository: PerformanceRepository,
     private val seatRepository: SeatRepository
 ) {
     @Transactional
-    open fun saveReservation(request: ReservationRequest) =
+    fun saveReservation(request: ReservationRequest) =
         reservationRepository.save(
             Reservation(
-                request.id,
-                request.email,
-                performanceRepository.findByIdOrNull(request.performanceId) ?: throw Exception(),
-                seatRepository.findByIdOrNull(request.seatId) ?: throw Exception(),
-                request.status
+                id = request.id,
+                email = request.email,
+                performance = performanceRepository.findByIdOrNull(request.performanceId)
+                    ?: throw IllegalStateException(),
+                seat = seatRepository.findByIdOrNull(request.seatId)
+                    ?: throw IllegalStateException(),
+                status = request.status
             )
         )
 }

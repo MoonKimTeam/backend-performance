@@ -29,18 +29,16 @@ data class PerformanceResponse(
         performance.endAt,
         performance.reservationStartAt,
         performance.reservationEndAt,
-        performance.canReserve,
+        performance.canReserve
+                && performance.reservationEndAt.isBefore(LocalDateTime.now())
+                && performance.reservationStartAt.isAfter(LocalDateTime.now()),
         performance.availableSeat,
         performance.place.id,
         performance.place.totalSeat,
         performance.place
             .seats
             ?.map {
-                SeatResponse(
-                    it.id,
-                    it.seatNumber,
-                    it.isAvailable
-                )
+                SeatResponse(it)
             } ?: listOf()
     )
 }

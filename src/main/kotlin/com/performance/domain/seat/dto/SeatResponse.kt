@@ -8,8 +8,8 @@ data class SeatResponse(
     private val isAvailable: Boolean
 ) {
     constructor(seat: Seat) : this(
-        seat.id,
-        seat.seatNumber,
-        seat.isAvailable
+        id = seat.id,
+        seatNumber = seat.seatNumber,
+        isAvailable = seat.isAvailable
     )
 }

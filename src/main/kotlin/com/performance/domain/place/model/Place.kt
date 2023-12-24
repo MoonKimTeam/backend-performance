@@ -19,4 +19,4 @@ class Place(
 
     @OneToMany(mappedBy = "place")
     var seats: List<Seat>?
-): BaseEntity()
+) : BaseEntity()

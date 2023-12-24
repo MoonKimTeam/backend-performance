@@ -5,18 +5,24 @@ import com.performance.domain.performance.repository.PerformanceRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
+@Service
 class PerformanceService(
     private val performanceRepository: PerformanceRepository
 ) {
+    @Transactional
     fun getPerformances(pageable: Pageable): Page<PerformanceResponse> =
         performanceRepository.findAll(pageable)
             .map {
                 PerformanceResponse(it)
             }
 
+    @Transactional
     fun getPerformance(id: Long): PerformanceResponse =
         PerformanceResponse(
-            performanceRepository.findByIdOrNull(id) ?: throw Exception()
+            performanceRepository.findByIdOrNull(id)
+                ?: throw IllegalStateException()
         )
 }
