@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull
 data class ReservationRequest(
     val id: Long,
     @field:Email
-    var email: String,
+    val email: String,
     @field:NotNull
-    var performanceId: Long,
+    val performanceId: Long,
     @field:NotNull
-    var seatId: Long,
+    val seatId: Long,
     @field:NotNull
-    var status: ReservationStatus
+    val status: ReservationStatus
 )

@@ -6,17 +6,17 @@ import java.math.BigDecimal
 import java.time.LocalDateTime
 
 data class PerformanceResponse(
-    private val id: Long,
-    private val name: String,
-    private val description: String,
-    private val price: BigDecimal,
-    private val startAt: LocalDateTime,
-    private val endAt: LocalDateTime,
-    private val reservationStartAt: LocalDateTime,
-    private val reservationEndAt: LocalDateTime,
-    private val canReserve: Boolean,
-    private val availableSeat: Int,
-    private val place: PlaceResponse
+    val id: Long,
+    val name: String,
+    val description: String,
+    val price: BigDecimal,
+    val startAt: LocalDateTime,
+    val endAt: LocalDateTime,
+    val reservationStartAt: LocalDateTime,
+    val reservationEndAt: LocalDateTime,
+    val canReserve: Boolean,
+    val availableSeat: Int,
+    val place: PlaceResponse
 ) {
     constructor(performance: Performance) : this(
         performance.id,
