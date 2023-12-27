@@ -2,7 +2,6 @@ package com.performance.domain.performance.controller
 
 import com.performance.domain.performance.dto.PerformanceResponse
 import com.performance.domain.performance.service.PerformanceService
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,7 +15,7 @@ class PerformanceController(
     private val performanceService: PerformanceService
 ) {
     @GetMapping
-    fun getPerformances(pageable: Pageable): ResponseEntity<Page<PerformanceResponse>> =
+    fun getPerformances(pageable: Pageable): ResponseEntity<List<PerformanceResponse>> =
         ResponseEntity.ok(performanceService.getPerformances(pageable))
 
     @GetMapping("/{id}")
