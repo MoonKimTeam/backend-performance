@@ -11,6 +11,7 @@ import jakarta.persistence.*
 @Table(name = "reservation")
 class Reservation(
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     @Column
@@ -21,7 +22,7 @@ class Reservation(
     var performance: Performance,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seat_number", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "seat_id", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
     var seat: Seat,
 
     @Column(name = "status", nullable = false)
