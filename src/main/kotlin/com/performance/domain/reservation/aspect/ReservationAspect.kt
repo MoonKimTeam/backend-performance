@@ -2,7 +2,7 @@ package com.performance.domain.reservation.aspect
 
 import com.performance.domain.performance.repository.PerformanceRepository
 import com.performance.domain.reservation.dto.ReservationRequest
-import com.performance.global.exception.ReservationUnavailableException
+import com.performance.global.exception.constant.IllegalStateExceptions
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -22,5 +22,5 @@ class ReservationAspect(
                     request.performanceId
                 )?.canReserve
                     ?: throw IllegalStateException()
-            } ?: throw ReservationUnavailableException()
+            } ?: throw IllegalStateExceptions.RESERVATION_UNAVAILABLE.exception()
 }
