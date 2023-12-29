@@ -43,4 +43,4 @@ class Performance(
 
     @Column(name = "available_seat", nullable = false)
     var availableSeat: Int
-): BaseEntity()
+) : BaseEntity()

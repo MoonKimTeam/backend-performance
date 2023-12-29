@@ -20,4 +20,4 @@ class Seat(
 
     @Column(name = "is_available", nullable = false)
     var isAvailable: Boolean
-): BaseEntity()
+) : BaseEntity()
