@@ -63,7 +63,7 @@ services:
   redis:
     image: redis:latest
     ports:
-      - "9999:6379"
+      - "6379:6379"
     volumes:
       - ./volume/redis/data:/data
       - ./volume/redis/conf/redis.conf:/usr/local/conf/redis.conf
