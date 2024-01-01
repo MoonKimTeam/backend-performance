@@ -11,17 +11,17 @@ import org.springframework.transaction.annotation.Transactional
 class PerformanceService(
     private val performanceRepository: PerformanceRepository
 ) {
-    @Transactional
+    @Transactional(readOnly = true)
     fun getPerformances(pageable: Pageable): List<PerformanceResponse> =
         performanceRepository.findAll(pageable)
             .content
             .map {
-                PerformanceResponse(it)
+                PerformanceResponse.from(it)
             }
 
-    @Transactional
+    @Transactional(readOnly = true)
     fun getPerformance(id: Long): PerformanceResponse =
-        PerformanceResponse(
+        PerformanceResponse.from(
             performanceRepository.findByIdOrNull(id)
                 ?: throw IllegalStateException()
         )

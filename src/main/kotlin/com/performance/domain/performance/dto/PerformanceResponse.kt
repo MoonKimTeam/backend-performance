@@ -18,19 +18,22 @@ data class PerformanceResponse(
     val availableSeat: Int,
     val place: PlaceResponse
 ) {
-    constructor(performance: Performance) : this(
-        performance.id,
-        performance.name,
-        performance.description,
-        performance.price,
-        performance.startAt,
-        performance.endAt,
-        performance.reservationStartAt,
-        performance.reservationEndAt,
-        performance.canReserve
-                && performance.reservationEndAt.isBefore(LocalDateTime.now())
-                && performance.reservationStartAt.isAfter(LocalDateTime.now()),
-        performance.availableSeat,
-        PlaceResponse(performance.place)
-    )
+    companion object {
+        fun from(performance: Performance): PerformanceResponse =
+            PerformanceResponse(
+                performance.id,
+                performance.name,
+                performance.description,
+                performance.price,
+                performance.startAt,
+                performance.endAt,
+                performance.reservationStartAt,
+                performance.reservationEndAt,
+                performance.canReserve
+                        && performance.reservationEndAt.isBefore(LocalDateTime.now())
+                        && performance.reservationStartAt.isAfter(LocalDateTime.now()),
+                performance.availableSeat,
+                PlaceResponse.from(performance.place)
+            )
+    }
 }

@@ -7,9 +7,12 @@ data class SeatResponse(
     val seatNumber: String,
     val isAvailable: Boolean
 ) {
-    constructor(seat: Seat) : this(
-        id = seat.id,
-        seatNumber = seat.seatNumber,
-        isAvailable = seat.isAvailable
-    )
+    companion object {
+        fun from(seat: Seat): SeatResponse =
+            SeatResponse(
+                id = seat.id,
+                seatNumber = seat.seatNumber,
+                isAvailable = seat.isAvailable
+            )
+    }
 }
