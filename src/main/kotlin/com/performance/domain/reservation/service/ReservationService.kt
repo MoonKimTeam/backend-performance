@@ -8,15 +8,20 @@ import com.performance.domain.seat.repository.SeatRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 
 @Service
 class ReservationService(
     private val reservationRepository: ReservationRepository,
     private val performanceRepository: PerformanceRepository,
-    private val seatRepository: SeatRepository
+    private val seatRepository: SeatRepository,
 ) {
     @Transactional
-    fun saveReservation(request: ReservationRequest) =
+    fun saveReservation(request: ReservationRequest) {
+        if (unavailableReservation(request)) {
+            return
+        }
+
         reservationRepository.save(
             Reservation(
                 id = request.id,
@@ -28,4 +33,18 @@ class ReservationService(
                 status = request.status
             )
         )
+    }
+
+    private fun unavailableReservation(request: ReservationRequest): Boolean {
+        val performance =
+            performanceRepository.findByIdOrNull(request.performanceId) ?: throw IllegalStateException()
+        return performance.canReserve
+                && performance.reservationEndAt.isAfter(LocalDateTime.now())
+                && performance.reservationStartAt.isBefore(LocalDateTime.now())
+                &&
+                reservationRepository.findByPerformanceIdAndSeatId(
+                    request.performanceId,
+                    request.seatId
+                ).isEmpty()
+    }
 }
