@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 class PerformanceService(
     private val performanceRepository: PerformanceRepository
 ) {
+
     @Transactional(readOnly = true)
     fun getPerformances(pageable: Pageable): List<PerformanceResponse> =
         performanceRepository.findAll(pageable)
