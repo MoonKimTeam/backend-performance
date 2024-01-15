@@ -20,7 +20,7 @@ class ReservationController(
         reservationService.saveReservation(request)
             .let {
                 ResponseEntity.created(
-                    URI.create("/reservations/" + it.id)
+                    URI.create("/reservations/$it")
                 ).build()
             }
 }

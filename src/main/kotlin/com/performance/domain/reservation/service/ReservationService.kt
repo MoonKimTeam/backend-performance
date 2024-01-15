@@ -17,12 +17,12 @@ class ReservationService(
     private val seatRepository: SeatRepository,
 ) {
     @Transactional
-    fun saveReservation(request: ReservationRequest) {
-        if (unavailableReservation(request)) {
-            return
+    fun saveReservation(request: ReservationRequest): Long {
+        check(!unavailableReservation(request)) {
+            throw IllegalStateException()
         }
 
-        reservationRepository.save(
+        return reservationRepository.save(
             Reservation(
                 id = request.id,
                 email = request.email,
@@ -32,7 +32,7 @@ class ReservationService(
                     ?: throw IllegalStateException(),
                 status = request.status
             )
-        )
+        ).id
     }
 
     private fun unavailableReservation(request: ReservationRequest): Boolean {
@@ -47,4 +47,20 @@ class ReservationService(
                     request.seatId
                 ).isEmpty()
     }
+
+    @Transactional
+    fun updateReservation(request: ReservationRequest) {
+        reservationRepository.findByIdOrNull(request.id)
+            ?.let {
+                it.email = request.email
+                it.performance =
+                    performanceRepository.findByIdOrNull(request.performanceId) ?: throw IllegalStateException()
+                it.seat = seatRepository.findByIdOrNull(request.seatId) ?: throw IllegalStateException()
+                it.status = request.status
+            }
+    }
+
+    @Transactional
+    fun deleteReservation(id: Long) =
+        reservationRepository.deleteById(id)
 }
