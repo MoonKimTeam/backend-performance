@@ -1,4 +1,4 @@
-package com.performance.domain.reservation.converter
+package com.performance.domain.reservation.constant.converter
 
 import com.performance.domain.reservation.constant.ReservationStatus
 import jakarta.persistence.AttributeConverter

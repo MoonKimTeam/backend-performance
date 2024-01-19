@@ -8,11 +8,12 @@ data class SeatResponse(
     val isAvailable: Boolean
 ) {
     companion object {
-        fun from(seat: Seat): SeatResponse =
-            SeatResponse(
+        fun from(seat: Seat): SeatResponse {
+            return SeatResponse(
                 id = seat.id,
                 seatNumber = seat.seatNumber,
                 isAvailable = seat.isAvailable
             )
+        }
     }
 }

@@ -10,16 +10,13 @@ data class PlaceResponse(
     var seats: List<SeatResponse>?
 ) {
     companion object {
-        fun from(place: Place): PlaceResponse =
-            PlaceResponse(
+        fun from(place: Place, seatResponse: List<SeatResponse>?): PlaceResponse {
+            return PlaceResponse(
                 id = place.id,
                 name = place.name,
                 totalSeat = place.totalSeat,
-                seats = place.seats
-                    ?.map
-                    {
-                        SeatResponse.from(it)
-                    }
+                seats = seatResponse
             )
+        }
     }
 }

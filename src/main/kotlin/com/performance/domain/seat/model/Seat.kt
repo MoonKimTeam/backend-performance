@@ -1,6 +1,5 @@
 package com.performance.domain.seat.model
 
-import com.performance.domain.place.model.Place
 import com.performance.global.entity.BaseEntity
 import jakarta.persistence.*
 
@@ -11,9 +10,8 @@ class Seat(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    var place: Place,
+    @Column(name = "place_id", nullable = false)
+    var placeId: Long,
 
     @Column(name = "seat_number", nullable = false)
     var seatNumber: String,

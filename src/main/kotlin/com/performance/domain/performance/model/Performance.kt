@@ -1,6 +1,5 @@
 package com.performance.domain.performance.model
 
-import com.performance.domain.place.model.Place
 import com.performance.global.entity.BaseEntity
 import jakarta.persistence.*
 import java.math.BigDecimal
@@ -13,9 +12,8 @@ class Performance(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "place_id", nullable = false, foreignKey = ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    var place: Place,
+    @Column(name = "place_id", nullable = false)
+    var placeId: Long,
 
     @Column(name = "name", nullable = false)
     var name: String,
@@ -43,4 +41,10 @@ class Performance(
 
     @Column(name = "available_seat", nullable = false)
     var availableSeat: Int
-) : BaseEntity()
+) : BaseEntity() {
+    fun canReserve(): Boolean {
+        return this.canReserve
+                && this.reservationEndAt.isBefore(LocalDateTime.now())
+                && this.reservationStartAt.isAfter(LocalDateTime.now())
+    }
+}
