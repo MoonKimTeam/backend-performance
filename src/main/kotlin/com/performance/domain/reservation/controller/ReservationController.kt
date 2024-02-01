@@ -17,8 +17,7 @@ class ReservationController(
         return reservationService.saveReservation(request)
             .let {
                 val uri = URI.create("/reservations/$it")
-                ResponseEntity.created(uri)
-                    .build()
+                ResponseEntity.created(uri).build()
             }
     }
 

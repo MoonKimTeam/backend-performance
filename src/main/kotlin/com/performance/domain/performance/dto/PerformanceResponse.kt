@@ -27,17 +27,17 @@ data class PerformanceResponse(
             seatResponses: List<SeatResponse>?
         ): PerformanceResponse {
             return PerformanceResponse(
-                performance.id,
-                performance.name,
-                performance.description,
-                performance.price,
-                performance.startAt,
-                performance.endAt,
-                performance.reservationStartAt,
-                performance.reservationEndAt,
-                performance.canReserve(),
-                performance.availableSeat,
-                PlaceResponse.from(place, seatResponses)
+                id = performance.id,
+                name = performance.name,
+                description = performance.description,
+                price = performance.price,
+                startAt = performance.startAt,
+                endAt = performance.endAt,
+                reservationStartAt = performance.reservationStartAt,
+                reservationEndAt = performance.reservationEndAt,
+                canReserve = performance.canReserve(),
+                availableSeat = performance.availableSeat,
+                place = PlaceResponse.from(place, seatResponses)
             )
         }
     }

@@ -4,6 +4,8 @@ import com.performance.domain.performance.dto.PerformanceResponse
 import com.performance.domain.performance.model.Performance
 import com.performance.domain.performance.repository.PerformanceRepository
 import com.performance.domain.place.model.Place
+import com.performance.domain.seat.dto.SeatResponse
+import com.performance.domain.seat.model.Seat
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,14 +23,20 @@ import java.util.*
 
 @ExtendWith(MockitoExtension::class)
 class PerformanceServiceTest {
+    private val seat: Seat = Seat(
+        id = 1,
+        placeId = 1,
+        seatNumber = 1.toString(),
+        isAvailable = true
+    )
+    private val place: Place = Place(
+        id = 1,
+        name = "공연장1",
+        totalSeat = 100,
+    )
     private val performance: Performance = Performance(
         id = 1,
-        place = Place(
-            id = 1,
-            name = "공연장1",
-            totalSeat = 100,
-            seats = listOf()
-        ),
+        placeId = 1,
         name = "공연1",
         description = "설명1",
         price = 100000.toBigDecimal(),
@@ -36,11 +44,15 @@ class PerformanceServiceTest {
         endAt = LocalDateTime.of(2023, 12, 25, 22, 0, 0),
         reservationStartAt = LocalDateTime.of(2023, 12, 1, 0, 0, 0, 0),
         reservationEndAt = LocalDateTime.of(2023, 12, 8, 0, 0, 0, 0),
-        true,
-        100
+        canReserve = true,
+        availableSeat = 100
     )
 
-    private val performanceResponse: PerformanceResponse = PerformanceResponse(performance)
+    private val performanceResponse: PerformanceResponse = PerformanceResponse.from(
+        performance = performance,
+        place = place,
+        seatResponses = listOf(SeatResponse.from(seat))
+    )
 
     @Mock
     private lateinit var performanceRepository: PerformanceRepository
@@ -63,6 +75,6 @@ class PerformanceServiceTest {
             .thenReturn(Optional.of(performance))
 
         assertThat(performanceService.getPerformance(1))
-            .isEqualTo(PerformanceResponse(performance))
+            .isEqualTo(performanceResponse)
     }
 }
