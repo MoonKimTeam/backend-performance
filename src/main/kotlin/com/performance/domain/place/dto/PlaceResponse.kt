@@ -9,13 +9,14 @@ data class PlaceResponse(
     var totalSeat: Int,
     var seats: List<SeatResponse>?
 ) {
-    constructor(place: Place) : this(
-        place.id,
-        place.name,
-        place.totalSeat,
-        place.seats
-            ?.map {
-                SeatResponse(it)
-            }
-    )
+    companion object {
+        fun from(place: Place, seatResponse: List<SeatResponse>?): PlaceResponse {
+            return PlaceResponse(
+                id = place.id,
+                name = place.name,
+                totalSeat = place.totalSeat,
+                seats = seatResponse
+            )
+        }
+    }
 }

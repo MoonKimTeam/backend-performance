@@ -2,6 +2,8 @@ package com.performance.domain.performance.dto
 
 import com.performance.domain.performance.model.Performance
 import com.performance.domain.place.dto.PlaceResponse
+import com.performance.domain.place.model.Place
+import com.performance.domain.seat.dto.SeatResponse
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -18,19 +20,25 @@ data class PerformanceResponse(
     val availableSeat: Int,
     val place: PlaceResponse
 ) {
-    constructor(performance: Performance) : this(
-        performance.id,
-        performance.name,
-        performance.description,
-        performance.price,
-        performance.startAt,
-        performance.endAt,
-        performance.reservationStartAt,
-        performance.reservationEndAt,
-        performance.canReserve
-                && performance.reservationEndAt.isBefore(LocalDateTime.now())
-                && performance.reservationStartAt.isAfter(LocalDateTime.now()),
-        performance.availableSeat,
-        PlaceResponse(performance.place)
-    )
+    companion object {
+        fun from(
+            performance: Performance,
+            place: Place,
+            seatResponses: List<SeatResponse>?
+        ): PerformanceResponse {
+            return PerformanceResponse(
+                id = performance.id,
+                name = performance.name,
+                description = performance.description,
+                price = performance.price,
+                startAt = performance.startAt,
+                endAt = performance.endAt,
+                reservationStartAt = performance.reservationStartAt,
+                reservationEndAt = performance.reservationEndAt,
+                canReserve = performance.canReserve(),
+                availableSeat = performance.availableSeat,
+                place = PlaceResponse.from(place, seatResponses)
+            )
+        }
+    }
 }

@@ -2,7 +2,6 @@ package com.performance.domain.reservation.service
 
 import com.performance.domain.performance.model.Performance
 import com.performance.domain.performance.repository.PerformanceRepository
-import com.performance.domain.place.model.Place
 import com.performance.domain.reservation.constant.ReservationStatus
 import com.performance.domain.reservation.dto.ReservationRequest
 import com.performance.domain.reservation.model.Reservation
@@ -22,48 +21,16 @@ import java.util.*
 
 @ExtendWith(MockitoExtension::class)
 class ReservationServiceTest {
-    val reservation = Reservation(
+    private val reservation = Reservation(
         id = 1,
         email = "abc@example.com",
-        performance = Performance(
-            1,
-            place = Place(
-                id = 1,
-                name = "A1",
-                totalSeat = 1,
-                seats = null
-            ),
-            name = "공연1",
-            description = "공연1입니다.",
-            price = 100000.toBigDecimal(),
-            startAt = LocalDateTime.of(2023, 12, 31, 19, 0, 0),
-            endAt = LocalDateTime.of(2023, 12, 31, 21, 0, 0),
-            availableSeat = 100,
-            canReserve = true,
-            reservationStartAt = LocalDate.of(2023, 12, 1).atStartOfDay(),
-            reservationEndAt = LocalDate.of(2023, 12, 7).atTime(23, 59, 59),
-        ),
-        seat = Seat(
-            id = 1,
-            place = Place(
-                id = 1,
-                name = "A1",
-                totalSeat = 1,
-                seats = null
-            ),
-            seatNumber = "A1",
-            isAvailable = true
-        ),
+        performanceId = 1,
+        seatId = 1,
         status = ReservationStatus.PENDING
     )
-    val performance = Performance(
+    private val performance = Performance(
         1,
-        place = Place(
-            id = 1,
-            name = "A1",
-            totalSeat = 1,
-            seats = null
-        ),
+        placeId = 1,
         name = "공연1",
         description = "공연1입니다.",
         price = 100000.toBigDecimal(),
@@ -75,16 +42,11 @@ class ReservationServiceTest {
         reservationEndAt = LocalDate.of(2023, 12, 7).atTime(23, 59, 59),
     )
 
-    val seat = Seat(
+    private val seat = Seat(
         id = 1,
-        place = Place(
-            id = 1,
-            name = "A1",
-            totalSeat = 1,
-            seats = null
-        ),
-        "A1",
-        true
+        placeId = 1,
+        seatNumber = "A1",
+        isAvailable = true
     )
 
     @Mock
